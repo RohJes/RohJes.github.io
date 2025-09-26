@@ -1,0 +1,51 @@
+<style>
+
+body{
+	background-color: black;
+}
+
+#time{
+	position: absolute;
+	text-align:center;
+	color: red;
+	font-size: 5vw;
+	top: 40%;
+	margin:auto;
+	left: 40%;
+}
+
+</style>
+
+<p id="time">default time</p>
+
+<script>
+var second = 1000;
+var minute = 60*second;
+var hour = 60*minute;
+var day = hour *24;
+
+var d = new Date();
+
+var s = "";
+
+function f(){
+	s="";
+	d=new Date();
+s += 20358+1 - Math.round(d.getTime() / day);
+s+= ":"
+
+s += (14 - Math.round(d.getTime() / hour))%(24)+24;
+s+= ":"
+
+s += (60-Math.round(d.getTime() / minute))%(60)+60;
+s+= ":"
+
+s += (60-Math.round(d.getTime() / second))%(60)+60;
+
+document.getElementById("time").innerHTML = s;
+console.log("hello");
+requestAnimationFrame(f);
+}
+
+requestAnimationFrame(f);
+</script>
