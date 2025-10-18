@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<style>
+			h1{
+				text-align: center;
+			}
+
+			button{
+				font-size: 20px;
+				margin-left: 45%;
+			}
+
+			#riddle{
+				text-align: center;
+				font-size: 40px;
+			}
+
+			#awnser{
+				width: 500px;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Riddle Generator</h1>
+
+		<button onclick="generate_riddle();">Generate Riddle.</button>
+
+		<div id="riddle"> </div>
+
+		<button onclick="draw_awnser();" id="generate_awnser">Generate Awnser</button>
+
+		<canvas id="awnser" width="500" height="500"> </canvas>
+
+		<img id="img" src="https://upload.wikimedia.org/wikipedia/en/c/c2/Peter_Griffin.png" style="display:none;"> </img>
+	</body>
+</html>
+<script>
+
+	const riddle = document.getElementById("riddle");
+
+	const generate_awnser = document.getElementById("generate_awnser");
+
+	const awnser = document.getElementById("awnser");
+	const ctx = awnser.getContext("2d");
+
+	function initialize(){
+		riddle.style.display = "none";
+		generate_awnser.style.display = "none";
+		awnser.style.display = "none";
+	}
+
+	const adjectives = ["red", "blue", "dirty", "menacing", "tuff", "with four legs", "with no hands", "not stupid", "a genius", "what some would call a savant", "kafkaesque", "on the no fly list", "has no legs", "can roll dice snake-eyes every time", "hyper non-trivial", 'rides the train', "puts the frys in the bag", "can count to 100 in under a second", "can name all 50 US states in 2 secconds", "should be the president", "was abducted by aliens at 3 years old", "thinks they're 18 but they're really 34", "a non-zero integer", "probably an albinoid", "a suspected terrosrist", "works for antifa", ""];
+
+	function generate_riddle(){
+		initialize();
+		var a = Math.floor(Math.random() * adjectives.length);
+		var b = Math.floor(Math.random() * adjectives.length);
+		var c = Math.floor(Math.random() * adjectives.length);
+		var r = "What is " + adjectives[a] + ", " + adjectives[b] + ", and " + adjectives[c] + "?";
+		riddle.innerHTML = r;
+		riddle.style.display = "block";
+		generate_awnser.style.display = "block";
+	}
+
+	function draw_image_covered_up(amount){
+		ctx.drawImage(image, 0, 0, 500, 500);
+		ctx.fillRect(0,  50*amount, 500, 500);
+	}
+
+	const image = document.getElementById("img");
+
+	var time = 0;
+
+	function draw_awnser(){
+		awnser.style.display = "block";
+		ctx.fillStyle = "#000000";
+		time = Date.now();
+		window.requestAnimationFrame(tick);
+	}
+
+	function tick(){
+		var ztime = (Date.now() - time) / 1000;
+		draw_image_covered_up(ztime);
+		if(ztime < 10){
+			window.requestAnimationFrame(tick);
+		} else {
+			console.log("done");
+		}
+	}
+
+
+
+	initialize();
+
+</script>
